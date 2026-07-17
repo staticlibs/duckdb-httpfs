@@ -238,8 +238,22 @@ struct AWSListObjectV2 {
 	static string ParseContinuationToken(string &aws_response);
 };
 
-HTTPHeaders CreateS3Header(EncryptionUtil &encryption_util, string url, string query, string host, string service,
-                           string method, const S3AuthParams &auth_params, string date_now = "",
-                           string datetime_now = "", string payload_hash = "", string content_type = "",
-                           string content_md5 = "");
+struct S3HeaderParams {
+	string url;
+	string query;
+	string host;
+	string service;
+	string method;
+	string date_now;
+	string datetime_now;
+	string payload_hash;
+	string content_type;
+	string content_md5;
+};
+
+struct S3Headers {
+	static HTTPHeaders CreateHeaders(EncryptionUtil &encryption_util, const S3HeaderParams &header_params,
+	                                 const S3AuthParams &auth_params);
+};
+
 } // namespace duckdb
